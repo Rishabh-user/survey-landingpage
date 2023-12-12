@@ -1,0 +1,16 @@
+<header class="landing-header">
+    <div class="mobile-header">
+        <a routerLink="/dashboard"><img class="img-fluid" src="../../../assets/images/logo/logo.png" width="200" height="57" priority></a>
+        <button class="btn" type="button" (click)="themeService.toggle()"><ng-icon
+            name="heroBars3BottomLeft"></ng-icon></button>
+    </div>
+    <div class="app-header">
+        <div class="d-flex align-items-center">
+            <button class="btn" type="button" (click)="themeService.toggle()"><ng-icon
+                    name="heroBars3BottomLeft"></ng-icon></button>
+            <p class="mb-0">This Survey if for <span>Track opinion<ng-icon ngbTooltip="Track Opinion"
+                        name="heroInformationCircle" class="ms-1"></ng-icon></span></p>
+           
+        </div>
+    </div>
+</header>

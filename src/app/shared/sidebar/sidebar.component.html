@@ -1,0 +1,43 @@
+<aside class="left-sidebar bg-white shadow-base">
+    <div class="menu">
+        <div class="dekstop-sidebar">
+            <a routerLink="/landing">
+                <div class="logo-icon text-center mb-3">
+                    <img class="img-fluid" src="../../../assets/images/logo/logo.png" width="200" height="57" priority>
+                    <img class="img-fluid small-menu" src="../../../assets/images/logo/T-logo.png" width="80"
+                        height="80" priority>
+                </div>
+            </a>
+            <div>
+                <div class="circle text-center">
+                    <circle-progress [percent]="progress" [radius]="100" [outerStrokeWidth]="10" [innerStrokeWidth]="6"
+                        [outerStrokeColor]="'#f05e16'" [innerStrokeColor]="'#f1f2f6'" [animation]="true"
+                        [animationDuration]="300">
+                    </circle-progress>
+                </div>
+
+                <div class="content text-center mb-5">
+                    <p class="">Hi <strong>There,</strong></p>
+                    <p>Your Feedback matters.Help us improve by completing the Survey.</p>
+                    <p><strong>Thank you for your valuabe input!</strong></p>
+                </div>
+            </div>
+            <div class="mobile-side-img text-center">
+                <img class="" src="../../../assets/images/sidebar/landing-left-img.png" class="img-fluid" width="300"
+                    height="300" />
+            </div>
+        </div>
+        <div class="mobile-sidebar">
+            <div class="h-100">
+                <a routerLink="/" class="mb-3"><img class="img-fluid small-menu"
+                        src="../../../assets/images/logo/T-logo.png" width="80" height="80" priority></a>
+                <ul>
+                    <li><a routerLink="/">About Us</a></li>
+                    <li><a routerLink="/">Privay Policy</a></li>
+                    <li><a routerLink="/">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <p>Copyright © 2023 Survey Builder Tool. All Right Reserved.</p>
+        </div>
+    </div>
+</aside>
