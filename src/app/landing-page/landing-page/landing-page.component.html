@@ -57,7 +57,7 @@
                         <h5>Q1. What is the highest level of education you have completed?</h5>
                         <div class="multiselect-option">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="illiterate">
+                                <input class="form-check-input" type="checkbox" value="" id="illiterate" checked>
                                 <label class="form-check-label" for="illiterate">illiterate</label>
                             </div>
                             <div class="form-check">
@@ -264,10 +264,20 @@
                         <h3>Please Update you Photo With the Products you Used</h3>
                     </div>
                     <div class="">
-                        <ngx-dropzone (change)="onFileSelected($event)">
+                        <!-- <ngx-dropzone (change)="onFileSelected($event)">
                             <ngx-dropzone-label>
                                 Drag and drop files here or click to select files
                             </ngx-dropzone-label>
+                        </ngx-dropzone> -->
+                        <ngx-dropzone (change)="onSelect($event)">
+                            <ngx-dropzone-label>
+                              <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                              <p>Max. File Size: 15MB</p>
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <img *ngIf="f.dataURL" [src]="f.dataURL" alt="Preview" />
+                                <ngx-dropzone-label *ngIf="!f.dataURL">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                              </ngx-dropzone-preview>
                         </ngx-dropzone>
                     </div>
                 </div>
@@ -469,15 +479,15 @@
                     <div class="mb-5 text-center">
                         <p>Question 14/16</p>
                         <h3>Have you purchased a product from us in the last six months?</h3>
-                        <div class="">
-                            <ul>
-                                <li>
-                                    <button class="btn btn-primary" type="button">Yes</button>
-                                </li>
-                                <li>
-                                    <button class="btn btn-primary" type="button">No</button>
-                                </li>
-                            </ul>
+                        <div class="multiselect-option mt-5">
+                            <div class="form-check">
+                                <input type="radio" value="" name="boolean" id="yes" class="form-check-input" checked>
+                                <label for="yes" class="form-check-label">Yes</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" value="" name="boolean" id="no" class="form-check-input">
+                                <label for="no" class="form-check-label">No</label>
+                            </div>
                         </div>
                     </div>
                 </div>

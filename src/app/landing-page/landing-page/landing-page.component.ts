@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { DataService } from 'src/service/data.service';
 import { FormControl } from '@angular/forms';
 
+class FileWithPreview extends File {
+  dataURL?: string;
+}
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -9,15 +12,45 @@ import { FormControl } from '@angular/forms';
 
 })
 export class LandingPageComponent {
-  files: File[] = [];
+  //files: File[] = [];
   selectedFile: File | undefined;
 
-  onFileSelected(event: any) {
-    const selectedFile = event.target.files[0] as File | null;
-    if (selectedFile) {
-      this.selectedFile = selectedFile;
+  // onFileSelected(event: any) {
+  //   const selectedFile = event.target.files[0] as File | null;
+  //   if (selectedFile) {
+  //     this.selectedFile = selectedFile;
+  //   }
+  // }
+  
+  files: FileWithPreview[] = [];
+
+  onSelect(event: any): void {
+    const selectedFiles: FileList = event && event.addedFiles;
+  
+    if (selectedFiles) {
+      for (let i = 0; i < selectedFiles.length; i++) {
+        const file: FileWithPreview = selectedFiles[i] as FileWithPreview;
+        this.files.push(file);
+        this.previewFile(file);
+      }
     }
   }
+
+  previewFile(file: FileWithPreview): void {
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent) => {
+      const target = e.target as FileReader;
+      if (target && typeof target.result === 'string') {
+        file.dataURL = target.result;
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  onRemove(file: FileWithPreview): void {
+    this.files = this.files.filter(f => f !== file);
+  }
+
   selectedValue: any;
   currentContentIndex: number = 0;
   progress = 0;
@@ -57,5 +90,6 @@ export class LandingPageComponent {
   toppingList: string[] = ['BYJUs', 'Careers360', 'Physics Wallah', 'Next Education', 'IQuanta', 'Collegedunia', 'Udemy', 'Vedantu', 'Unacademy', 'UpGrad', 'SimpliLearn', 'WhiteHat Jr', 'Others. (Please specify)', 'None of the above'];
 
 
+  
 
 }
