@@ -21,12 +21,12 @@ export class LandingPageComponent {
   //     this.selectedFile = selectedFile;
   //   }
   // }
-  
+
   files: FileWithPreview[] = [];
 
   onSelect(event: any): void {
     const selectedFiles: FileList = event && event.addedFiles;
-  
+
     if (selectedFiles) {
       for (let i = 0; i < selectedFiles.length; i++) {
         const file: FileWithPreview = selectedFiles[i] as FileWithPreview;
@@ -90,6 +90,6 @@ export class LandingPageComponent {
   toppingList: string[] = ['BYJUs', 'Careers360', 'Physics Wallah', 'Next Education', 'IQuanta', 'Collegedunia', 'Udemy', 'Vedantu', 'Unacademy', 'UpGrad', 'SimpliLearn', 'WhiteHat Jr', 'Others. (Please specify)', 'None of the above'];
 
 
-  
+
 
 }
