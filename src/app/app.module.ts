@@ -32,6 +32,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatSliderModule } from '@angular/material/slider'; 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -55,7 +56,7 @@ import { MatSliderModule } from '@angular/material/slider';
     NgxDropzoneModule,
     MatSliderModule,
     FormsModule,ReactiveFormsModule,
-    
+    DragDropModule,
     NgIconsModule.withIcons({
       heroBars3,
       heroArrowLongLeft,

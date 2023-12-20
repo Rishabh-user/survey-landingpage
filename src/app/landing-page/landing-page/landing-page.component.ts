@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/service/data.service';
 import { FormControl } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 class FileWithPreview extends File {
   dataURL?: string;
@@ -90,6 +91,38 @@ export class LandingPageComponent {
   toppingList: string[] = ['BYJUs', 'Careers360', 'Physics Wallah', 'Next Education', 'IQuanta', 'Collegedunia', 'Udemy', 'Vedantu', 'Unacademy', 'UpGrad', 'SimpliLearn', 'WhiteHat Jr', 'Others. (Please specify)', 'None of the above'];
 
 
+// Continuous sum
+sliderSum: number = 110; // Initial sum of slider values
+  rangeValue1: number = 40;
+  rangeValue2: number = 20;
+  rangeValue3: number = 50;
+  updateValues(slider: string, event: any): void {
+    const value = parseInt(event.target.value);
+    switch (slider) {
+      case 'num1':
+        this.rangeValue1 = value;
+        break;
+      case 'num2':
+        this.rangeValue2 = value;
+        break;
+      case 'num3':
+        this.rangeValue3 = value;
+        break;
+    }
+    this.calculateSum();
+  }
+  calculateSum(): void {
+    this.sliderSum = this.rangeValue1 + this.rangeValue2 + this.rangeValue3;
+  }
 
-
+  // Drag and drop
+  items = [
+    { listing: 'Item 1' },
+    { listing: 'Item 2' },
+    { listing: 'Item 3' },
+  ];
+  drop(event: CdkDragDrop<string[]>): void {
+    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+  }
+ 
 }
