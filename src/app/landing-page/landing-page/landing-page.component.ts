@@ -1,7 +1,15 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/service/data.service';
 import { FormControl } from '@angular/forms';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+// import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  CdkDrag,
+  CdkDropList,
+  CdkDropListGroup,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 
 class FileWithPreview extends File {
   dataURL?: string;
@@ -10,7 +18,7 @@ class FileWithPreview extends File {
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css'],
-
+  
 })
 export class LandingPageComponent {
   //files: File[] = [];
@@ -116,13 +124,30 @@ sliderSum: number = 110; // Initial sum of slider values
   }
 
   // Drag and drop
-  items = [
-    { listing: 'Item 1' },
-    { listing: 'Item 2' },
-    { listing: 'Item 3' },
-  ];
-  drop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+  // items = [
+  //   { listing: 'Item 1' },
+  //   { listing: 'Item 2' },
+  //   { listing: 'Item 3' },
+  // ];
+  // drop(event: CdkDragDrop<string[]>): void {
+  //   moveItemInArray(this.items, event.previousIndex, event.currentIndex);
+  // }
+
+  todo = ['Item 3', 'Item 4', 'Item 5', 'Item 6'];
+
+  done = ['Item 1', 'Item 2'];
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
  
 }

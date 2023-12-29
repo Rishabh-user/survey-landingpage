@@ -378,35 +378,35 @@
                                     <input type="radio" name="emotion" id="angry" class="input-hidden">
                                     <label for="angry">
                                         <img src="../../../assets/images/Very-Unsatisfied.svg" alt="Very-Unsatisfied">
-                                        <span>Would definitely not buy</span>
+                                        <span>Very Unsatisfied</span>
                                     </label>
                                 </li>
                                 <li>
                                     <input type="radio" name="emotion" id="unsatisfied" class="input-hidden">
                                     <label for="unsatisfied">
                                         <img src="../../../assets/images/Unsatisfied.svg" alt="unsatisfied">
-                                        <span>Would probably not buy</span>
+                                        <span>Unsatisfied</span>
                                     </label>
                                 </li>
                                 <li>
                                     <input type="radio" name="emotion" id="neutral" class="input-hidden">
                                     <label for="neutral">
                                         <img src="../../../assets/images/neutral.svg" alt="neutral">
-                                        <span>Might or might not buy</span>
+                                        <span>Neutral</span>
                                     </label>
                                 </li>
                                 <li>
                                     <input type="radio" name="emotion" id="satisfied" class="input-hidden">
                                     <label for="satisfied">
                                         <img src="../../../assets/images/satisfied.svg" alt="satisfied">
-                                        <span>Would probably buy</span>
+                                        <span>Satisfied</span>
                                     </label>
                                 </li>
                                 <li>
                                     <input type="radio" name="emotion" id="happy" class="input-hidden">
                                     <label for="happy">
                                         <img src="../../../assets/images/Very-satisfied.svg" alt="Very-satisfied">
-                                        <span>Would definitely buy</span>
+                                        <span>Very Satisfied</span>
                                     </label>
                                 </li>
                             </ul>
@@ -547,47 +547,47 @@
                             <div class="multiselect-option nps-ques">
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="0" class="form-check-input" checked>
-                                    <label for="0" class="form-check-label">0</label>
+                                    <label for="0" class="form-check-label red" ngbTooltip="Not Likely">0</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="1" class="form-check-input">
-                                    <label for="1" class="form-check-label">1</label>
+                                    <label for="1" class="form-check-label red" ngbTooltip="Not Likely">1</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="2" class="form-check-input">
-                                    <label for="2" class="form-check-label">2</label>
+                                    <label for="2" class="form-check-label red" ngbTooltip="Not Likely">2</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="3" class="form-check-input">
-                                    <label for="3" class="form-check-label">3</label>
+                                    <label for="3" class="form-check-label red" ngbTooltip="Not Likely">3</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="4" class="form-check-input">
-                                    <label for="4" class="form-check-label">4</label>
+                                    <label for="4" class="form-check-label orange" ngbTooltip="UnSatisfactory">4</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="5" class="form-check-input">
-                                    <label for="5" class="form-check-label">5</label>
+                                    <label for="5" class="form-check-label orange" ngbTooltip="UnSatisfactory">5</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="6" class="form-check-input">
-                                    <label for="6" class="form-check-label">6</label>
+                                    <label for="6" class="form-check-label orange" ngbTooltip="UnSatisfactory">6</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="7" class="form-check-input">
-                                    <label for="7" class="form-check-label">7</label>
+                                    <label for="7" class="form-check-label yellow" ngbTooltip="Satisfactory">7</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="8" class="form-check-input">
-                                    <label for="8" class="form-check-label">8</label>
+                                    <label for="8" class="form-check-label yellow" ngbTooltip="Satisfactory">8</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="9" class="form-check-input">
-                                    <label for="9" class="form-check-label">9</label>
+                                    <label for="9" class="form-check-label green" ngbTooltip="Extremly likely">9</label>
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="10" class="form-check-input">
-                                    <label for="10" class="form-check-label">10</label>
+                                    <label for="10" class="form-check-label green" ngbTooltip="Extremly likely">10</label>
                                 </div>
                             </div>
                         </div>
@@ -615,7 +615,7 @@
                 <div class="change" *ngIf="currentContentIndex === 11">
                     <div class="mb-5 text-center">
                         <p>Question 12/16</p>
-                        <h3>Cantinous Sum</h3>
+                        <h3>Continuous Sum</h3>
                     </div>
                     <div class="question-align-center">
                         <div class="w-100">
@@ -661,11 +661,26 @@
                     </div>
                     <div class="question-align-center">
                         <div class="w-100 order-ranking">
-                            <div cdkDropList (cdkDropListDropped)="drop($event)">
+                            <!-- <div cdkDropList (cdkDropListDropped)="drop($event)">
                                 <div *ngFor="let item of items; let i = index" cdkDrag>
                                     <ng-icon name="heroBars3" class="me-2"></ng-icon> {{ i + 1 }}. {{ item.listing }}
                                 </div>
-                            </div>
+                            </div> -->
+                            <div class="row" cdkDropListGroup>
+                                <div class="col-md-6 example-container">
+                                    <h2>To do</h2>
+                                    <div cdkDropList class="example-list" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
+                                    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6 example-container">
+                                    <h2>Done</h2>
+                                    <div cdkDropList class="example-list" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)">
+                                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                                    </div>
+                                </div>
+                            </div>                              
                         </div>
                     </div>
                 </div>
@@ -708,10 +723,13 @@
                             <table class="table">
                                 <tr>
                                     <td></td>
-                                    <td>Display</td>
-                                    <td>Memory</td>
-                                    <td>Performance</td>
-                                    <td>Battery</td>
+                                    <td>Not at all <br>important<br> 0</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                    <td>4</td>
+                                    <td>Very <br>Important <br> 5</td>
+                                    <td>No <br>Opinion</td>
                                 </tr>
                                 <tr>
                                     <td>Apple</td>
@@ -719,6 +737,9 @@
                                     <td><input class="form-check-input" type="radio" id="2" name="Apple"></td>
                                     <td><input class="form-check-input" type="radio" id="3" name="Apple"></td>
                                     <td><input class="form-check-input" type="radio" id="4" name="Apple"></td>
+                                    <td><input class="form-check-input" type="radio" id="5" name="Apple"></td>
+                                    <td><input class="form-check-input" type="radio" id="6" name="Apple"></td>
+                                    <td><input class="form-check-input" type="radio" id="7" name="Apple"></td>
                                 </tr>
                                 <tr>
                                     <td>Nokia</td>
@@ -726,6 +747,9 @@
                                     <td><input class="form-check-input" type="radio" id="2" name="Nokia"></td>
                                     <td><input class="form-check-input" type="radio" id="3" name="Nokia"></td>
                                     <td><input class="form-check-input" type="radio" id="4" name="Nokia"></td>
+                                    <td><input class="form-check-input" type="radio" id="5" name="Nokia"></td>
+                                    <td><input class="form-check-input" type="radio" id="6" name="Nokia"></td>
+                                    <td><input class="form-check-input" type="radio" id="7" name="Nokia"></td>
                                 </tr>
                                 <tr>
                                     <td>Samsung</td>
@@ -733,6 +757,9 @@
                                     <td><input class="form-check-input" type="radio" id="2" name="Samsung"></td>
                                     <td><input class="form-check-input" type="radio" id="3" name="Samsung"></td>
                                     <td><input class="form-check-input" type="radio" id="4" name="Samsung"></td>
+                                    <td><input class="form-check-input" type="radio" id="5" name="Samsung"></td>
+                                    <td><input class="form-check-input" type="radio" id="6" name="Samsung"></td>
+                                    <td><input class="form-check-input" type="radio" id="7" name="Samsung"></td>
                                 </tr>
                                 <tr>
                                     <td>Motorola</td>
@@ -740,6 +767,9 @@
                                     <td><input class="form-check-input" type="radio" id="2" name="Motorola"></td>
                                     <td><input class="form-check-input" type="radio" id="3" name="Motorola"></td>
                                     <td><input class="form-check-input" type="radio" id="4" name="Motorola"></td>
+                                    <td><input class="form-check-input" type="radio" id="5" name="Motorola"></td>
+                                    <td><input class="form-check-input" type="radio" id="6" name="Motorola"></td>
+                                    <td><input class="form-check-input" type="radio" id="7" name="Motorola"></td>
                                 </tr>
                             </table>
                         </div>
@@ -760,9 +790,11 @@
                                     <td>Memory</td>
                                     <td>Performance</td>
                                     <td>Battery</td>
+                                    <td>No <br>Opinion</td>
                                 </tr>
                                 <tr>
                                     <td>Apple</td>
+                                    <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
@@ -774,6 +806,7 @@
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
+                                    <td><input class="form-check-input" type="checkbox" value=""></td>
                                 </tr>
                                 <tr>
                                     <td>Samsung</td>
@@ -781,9 +814,11 @@
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
+                                    <td><input class="form-check-input" type="checkbox" value=""></td>
                                 </tr>
                                 <tr>
                                     <td>Motorola</td>
+                                    <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>
                                     <td><input class="form-check-input" type="checkbox" value=""></td>

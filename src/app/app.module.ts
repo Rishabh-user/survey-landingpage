@@ -33,7 +33,7 @@ import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatSliderModule } from '@angular/material/slider'; 
 import { DragDropModule } from '@angular/cdk/drag-drop';
-
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     MatSliderModule,
     FormsModule,ReactiveFormsModule,
     DragDropModule,
+    NgbTooltipModule,
     NgIconsModule.withIcons({
       heroBars3,
       heroArrowLongLeft,
