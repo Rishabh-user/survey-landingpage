@@ -349,18 +349,22 @@
                                     Drag and drop files here or click to select files
                                 </ngx-dropzone-label>
                             </ngx-dropzone> -->
-                            <ngx-dropzone (change)="onSelect($event)">
-                                <ngx-dropzone-label>
-                                    <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
-                                    <p>Max. File Size: 15MB</p>
-                                </ngx-dropzone-label>
-                                <ngx-dropzone-preview *ngFor="let f of files" [removable]="true"
-                                    (removed)="onRemove(f)">
-                                    <img *ngIf="f.dataURL" [src]="f.dataURL" alt="Preview" />
-                                    <ngx-dropzone-label *ngIf="!f.dataURL">{{ f.name }} ({{ f.type
-                                        }})</ngx-dropzone-label>
-                                </ngx-dropzone-preview>
+                            <ngx-dropzone (change)="onFileChange($event)" (error)="onUploadError($event)">
+                                <div class="dz-message">
+                                    <p>Drop files here or click to upload.</p>
+                                </div>
                             </ngx-dropzone>
+
+                            <div *ngFor="let file of files">
+                                <img [src]="file.url" alt="Preview" class="preview-image" />
+                                <button (click)="onRemove(file)">Remove</button>
+                                <div class="progress">
+                                    <div class="progress-bar" [style.width.%]="file.uploadProgress"
+                                        [ngClass]="{'bg-success': file.uploadSuccess, 'bg-danger': file.uploadError}">
+                                        {{ file.uploadProgress }}%
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -587,7 +591,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="10" class="form-check-input">
-                                    <label for="10" class="form-check-label green" ngbTooltip="Extremly likely">10</label>
+                                    <label for="10" class="form-check-label green"
+                                        ngbTooltip="Extremly likely">10</label>
                                 </div>
                             </div>
                         </div>
@@ -669,18 +674,20 @@
                             <div class="row" cdkDropListGroup>
                                 <div class="col-md-6 example-container">
                                     <h2>To do</h2>
-                                    <div cdkDropList class="example-list" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
-                                    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+                                    <div cdkDropList class="example-list" [cdkDropListData]="todo"
+                                        (cdkDropListDropped)="drop($event)">
+                                        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6 example-container">
                                     <h2>Done</h2>
-                                    <div cdkDropList class="example-list" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)">
-                                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                                    <div cdkDropList class="example-list" [cdkDropListData]="done"
+                                        (cdkDropListDropped)="drop($event)">
+                                        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
                                     </div>
                                 </div>
-                            </div>                              
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -792,41 +799,27 @@
                                     <td>Battery</td>
                                     <td>No <br>Opinion</td>
                                 </tr>
-                                <tr>
-                                    <td>Apple</td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td>Vivo</td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td>Samsung</td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                </tr>
-                                <tr>
-                                    <td>Motorola</td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
-                                    <td><input class="form-check-input" type="checkbox" value=""></td>
+                                <tr *ngFor="let brand of brands">
+                                    <td>{{ brand.name }}</td>
+                                    <td><input class="form-check-input" type="checkbox"
+                                            [checked]="form.get(brand.formGroupName)?.value.display"
+                                            (change)="handleCheckboxChange(brand.formGroupName, 'display')"></td>
+                                    <td><input class="form-check-input" type="checkbox"
+                                            [checked]="form.get(brand.formGroupName)?.value.memory"
+                                            (change)="handleCheckboxChange(brand.formGroupName, 'memory')"></td>
+                                    <td><input class="form-check-input" type="checkbox"
+                                            [checked]="form.get(brand.formGroupName)?.value.performance"
+                                            (change)="handleCheckboxChange(brand.formGroupName, 'performance')"></td>
+                                    <td><input class="form-check-input" type="checkbox"
+                                            [checked]="form.get(brand.formGroupName)?.value.battery"
+                                            (change)="handleCheckboxChange(brand.formGroupName, 'battery')"></td>
+                                    <td><input class="form-check-input" type="checkbox"
+                                            (change)="handleCheckboxChange(brand.formGroupName, 'noOpinion')"></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="pb-3 prev dev-next-prev mobile-next-prev mt-5">
