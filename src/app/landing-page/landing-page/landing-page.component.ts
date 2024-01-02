@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/service/data.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 // import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import {
   CdkDragDrop,
@@ -11,9 +12,19 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 
-class FileWithPreview extends File {
-  dataURL?: string;
+interface FileWithPreview {
+  file: File;
+  url?: string;
+  uploadProgress?: number;
+  uploadSuccess?: boolean;
+  uploadError?: boolean;
 }
+
+interface Brand {
+  name: string;
+  formGroupName: string;
+}
+
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -21,6 +32,16 @@ class FileWithPreview extends File {
 
 })
 export class LandingPageComponent {
+
+  form!: FormGroup; // definite assignment assertion
+  brands: Brand[] = [
+    { name: 'Apple', formGroupName: 'appleGroup' },
+    { name: 'Vivo', formGroupName: 'vivoGroup' },
+    { name: 'Samsung', formGroupName: 'samsungGroup' },
+    { name: 'Motorola', formGroupName: 'motorolaGroup' },
+  ];
+
+
   //files: File[] = [];
   selectedFile: File | undefined;
 
@@ -31,33 +52,67 @@ export class LandingPageComponent {
   //   }
   // }
 
-  files: FileWithPreview[] = [];
+  public files: FileWithPreview[] = [];
 
-  onSelect(event: any): void {
-    const selectedFiles: FileList = event && event.addedFiles;
+  // Dropzone configuration
+  public config: DropzoneConfigInterface = {
+    url: '/upload',
+    maxFiles: 10,
+    clickable: true,
+  };
 
-    if (selectedFiles) {
-      for (let i = 0; i < selectedFiles.length; i++) {
-        const file: FileWithPreview = selectedFiles[i] as FileWithPreview;
+
+  onFileChange(event: any): void {
+    // Handle file selection and preview
+    if (event && event.addedFiles) {
+      console.log('Added Files:', event.addedFiles);
+      const fileList: FileList = event.addedFiles;
+      for (let i = 0; i < fileList.length; i++) {
+        const file: FileWithPreview = { file: fileList[i] };
         this.files.push(file);
-        this.previewFile(file);
+
+        // Optionally, you can create a preview URL for the image files
+        if (file.file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            file.url = e.target.result;
+          };
+          reader.readAsDataURL(file.file);
+        }
       }
     }
-  }
 
-  previewFile(file: FileWithPreview): void {
-    const reader = new FileReader();
-    reader.onload = (e: ProgressEvent) => {
-      const target = e.target as FileReader;
-      if (target && typeof target.result === 'string') {
-        file.dataURL = target.result;
-      }
-    };
-    reader.readAsDataURL(file);
   }
 
   onRemove(file: FileWithPreview): void {
-    this.files = this.files.filter(f => f !== file);
+    // Find the index of the file in the files array
+    const index = this.files.indexOf(file);
+
+    // If the file is found, remove it from the array
+    if (index !== -1) {
+      this.files.splice(index, 1);
+    }
+  }
+
+  onUploadSuccess(file: FileWithPreview): void {
+    // Handle successful file upload
+    file.uploadSuccess = true;
+    file.uploadProgress = 100;
+    console.log('File uploaded successfully:', file);
+  }
+
+  onUploadError(event: any): void {
+    // Handle file upload error
+    const fileName = event.file?.name;
+    const fileWithError: FileWithPreview | undefined = this.files.find(
+      (file) => file.file.name === (fileName || '')
+    );
+
+    if (fileWithError) {
+      fileWithError.uploadError = true;
+      fileWithError.uploadProgress = 0;
+      console.error('File upload error:', fileWithError);
+    }
   }
 
   selectedValue: any;
@@ -65,12 +120,45 @@ export class LandingPageComponent {
   progress = 0;
   maxIndex = 18;
 
-  constructor(private progressService: DataService) {
+  constructor(private progressService: DataService, private fb: FormBuilder) {
     this.progressService.progress$.subscribe(progress => {
       this.progress = progress;
     });
+    this.initializeForm();
   }
 
+  initializeForm(): void {
+    const formGroupConfig: { [key: string]: any } = {};
+    this.brands.forEach(brand => {
+      formGroupConfig[brand.formGroupName] = this.fb.group({
+        noOpinion: false,
+        display: false,
+        memory: false,
+        performance: false,
+        battery: false,
+      });
+    });
+    this.form = this.fb.group(formGroupConfig);
+  }
+  handleCheckboxChange(groupName: string, controlName: string): void {
+    const group = this.form.get(groupName) as FormGroup;
+
+    console.log(group);
+    if (controlName === 'noOpinion') {
+      console.log(group.get('noOpinion')!.value);
+      // If "No Opinion" is checked, uncheck the other checkboxes
+      if (group.get('noOpinion')!.value) {
+        Object.keys(group.controls).forEach(ctrlName => {
+          if (ctrlName !== 'noOpinion') {
+            group.get(ctrlName)!.setValue(false);
+          }
+        });
+      }
+    } else if (!group.get('noOpinion')!.value) {
+      // If "No Opinion" is unchecked, uncheck other checkboxes
+      group.get('noOpinion')!.setValue(false);
+    }
+  }
   decreaseProgress() {
     if (this.progress > 0) {
       this.progress -= 7.14; // Decrease the progress by 5% (adjust as needed)

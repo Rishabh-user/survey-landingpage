@@ -27,13 +27,13 @@ import { heroStar } from '@ng-icons/heroicons/outline';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxDropzoneModule } from 'ngx-dropzone';
-import { MatSliderModule } from '@angular/material/slider'; 
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSliderModule } from '@angular/material/slider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     MatFormFieldModule,
     NgxDropzoneModule,
     MatSliderModule,
-    FormsModule,ReactiveFormsModule,
+    FormsModule, ReactiveFormsModule,
     DragDropModule,
     NgbTooltipModule,
     NgIconsModule.withIcons({
@@ -76,6 +76,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
       animationDuration: 300,
     }),
     BrowserAnimationsModule,
+    NgxDropzoneModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
