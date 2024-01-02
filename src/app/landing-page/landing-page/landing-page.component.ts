@@ -18,7 +18,7 @@ class FileWithPreview extends File {
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css'],
-  
+
 })
 export class LandingPageComponent {
   //files: File[] = [];
@@ -99,8 +99,8 @@ export class LandingPageComponent {
   toppingList: string[] = ['BYJUs', 'Careers360', 'Physics Wallah', 'Next Education', 'IQuanta', 'Collegedunia', 'Udemy', 'Vedantu', 'Unacademy', 'UpGrad', 'SimpliLearn', 'WhiteHat Jr', 'Others. (Please specify)', 'None of the above'];
 
 
-// Continuous sum
-sliderSum: number = 110; // Initial sum of slider values
+  // Continuous sum
+  sliderSum: number = 110; // Initial sum of slider values
   rangeValue1: number = 40;
   rangeValue2: number = 20;
   rangeValue3: number = 50;
@@ -149,5 +149,5 @@ sliderSum: number = 110; // Initial sum of slider values
       );
     }
   }
- 
+
 }

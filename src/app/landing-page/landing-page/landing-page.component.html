@@ -587,7 +587,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input type="radio" value="" name="nps" id="10" class="form-check-input">
-                                    <label for="10" class="form-check-label green" ngbTooltip="Extremly likely">10</label>
+                                    <label for="10" class="form-check-label green"
+                                        ngbTooltip="Extremly likely">10</label>
                                 </div>
                             </div>
                         </div>
@@ -604,9 +605,8 @@
                             <div class="multiple_select-question">
                                 <h5>Slider Scale type Question</h5>
                             </div>
-                            <mat-slider min="0" max="500" class="w-100 mt-5">
-                                <input value="0" matSliderStartThumb>
-                                <input value="400" matSliderEndThumb>
+                            <mat-slider max="500" class="w-100 mt-5">
+                                <input matSliderThumb>
                             </mat-slider>
                         </div>
                     </div>
@@ -669,18 +669,20 @@
                             <div class="row" cdkDropListGroup>
                                 <div class="col-md-6 example-container">
                                     <h2>To do</h2>
-                                    <div cdkDropList class="example-list" [cdkDropListData]="todo" (cdkDropListDropped)="drop($event)">
-                                    <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+                                    <div cdkDropList class="example-list" [cdkDropListData]="todo"
+                                        (cdkDropListDropped)="drop($event)">
+                                        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-6 example-container">
                                     <h2>Done</h2>
-                                    <div cdkDropList class="example-list" [cdkDropListData]="done" (cdkDropListDropped)="drop($event)">
-                                    <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+                                    <div cdkDropList class="example-list" [cdkDropListData]="done"
+                                        (cdkDropListDropped)="drop($event)">
+                                        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
                                     </div>
                                 </div>
-                            </div>                              
+                            </div>
                         </div>
                     </div>
                 </div>
