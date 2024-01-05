@@ -696,3 +696,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     pointer-events: none;
   }
 /* Range */
+
+.question-option input[type="radio"]{ opacity: 0;}

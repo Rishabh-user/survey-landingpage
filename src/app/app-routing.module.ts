@@ -6,7 +6,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TeamsandconditionComponent } from './pages/teamsandcondition/teamsandcondition.component';
 
 const routes: Routes = [
-  { path: '', component: LandingPageComponent },
+  { path: 'survey/preview/:param1', component: LandingPageComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'teams&condition', component: TeamsandconditionComponent }
