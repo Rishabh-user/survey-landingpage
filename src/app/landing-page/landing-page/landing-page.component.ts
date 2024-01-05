@@ -268,18 +268,18 @@ export class LandingPageComponent implements OnInit{
 
   done = ['Item 1', 'Item 2'];
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-  }
+  // drop(event: CdkDragDrop<string[]>) {
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //   } else {
+  //     transferArrayItem(
+  //       event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex,
+  //     );
+  //   }
+  // }
 
   // color change of slider track
   rangeValue: number = 0;
@@ -296,8 +296,22 @@ export class LandingPageComponent implements OnInit{
     }
   }
 
+  rangeValuenew: number = 0;
+  get trackColor2(): string {
+    if (this.rangeValuenew <= 20) {
+      return `linear-gradient(to right, red ${this.rangeValuenew}%, grey ${this.rangeValuenew}%)`;
+    } else if (this.rangeValuenew <= 40) {
+      return `linear-gradient(to right, red 20%, orange ${this.rangeValuenew}%, grey ${this.rangeValuenew}%)`;
+    } else if (this.rangeValuenew <= 60) {
+      return `linear-gradient(to right, red 20%, orange 40%, yellow ${this.rangeValuenew}%, grey ${this.rangeValuenew}%)`;
+    } else {
+      // Continue changing color based on pointer movement beyond 80%
+      return `linear-gradient(to right, red 20%, orange 40%, yellow 60%, green ${this.rangeValuenew}%, grey ${this.rangeValuenew}%)`;
+    }
+  }
+
   continuousValue: number = 0;
-  get continuousTrackColor(): string {
+  get continuousnew(): string {
     if (this.continuousValue <= 20) {
       return `linear-gradient(to right, red ${this.continuousValue}%, grey ${this.continuousValue}%)`;
     } else if (this.continuousValue <= 40) {
@@ -331,6 +345,74 @@ export class LandingPageComponent implements OnInit{
         // Handle errors here
       }
     );
+  }
+
+
+
+  //ranking
+
+  timePeriods = [
+    'Needs development',
+    'Consistently meets expectations',
+    'Oftern exceeds expectations',
+    'Almost always exceeds expectations',
+    'Sets a new standard of performance',
+  ];
+
+  targetItems: string[] = [];
+  targettwoItem: string[] = [];
+  targetthreeItem: string[] = [];
+  targetfourItem: string[] = [];
+  targetfiveItem: string[] = [];
+  targetItemsbox: string[] = [];
+  targettwoItems: string[] = [];
+  targetthreeItems: string[] = [];
+  targetfourItems: string[] = [];
+  targetfiveItems: string[] = [];
+
+
+
+
+
+
+
+  drop(event: CdkDragDrop<string[]>, dropOption: number): void {
+
+    if (dropOption == 1) {
+      if (event.container.data.length === 0) {
+        if (event.previousContainer === event.container) {
+
+          moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        } else {
+
+          transferArrayItem(
+            event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex
+          );
+        }
+      }
+    }
+    else {
+      if (event.previousContainer === event.container) {
+
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      } else {
+
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex
+        );
+      }
+
+    }
+  }
+
+  back(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
   }
 
 

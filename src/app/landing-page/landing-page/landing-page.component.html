@@ -352,20 +352,27 @@
                                     Drag and drop files here or click to select files
                                 </ngx-dropzone-label>
                             </ngx-dropzone> -->
-                            <ngx-dropzone (change)="onFileChange($event)" (error)="onUploadError($event)">
-                                <div class="dz-message">
-                                    <p>Drop files here or click to upload.</p>
+                            <ngx-dropzone class="d-flex justify-content-center drag-image-area"
+                                (change)="onFileChange($event)" (error)="onUploadError($event)">
+                                <div class="dz-message text-center">
+                                    <ng-icon class="mb-4" name="heroArrowUpTray"></ng-icon>
+                                    <h5 class="mb-2">
+                                        <span class="text-decoration-underline">Click to Upload</span> or drag and Drop
+                                    </h5>
+                                    <p>Max. File Size: 15MB</p>
                                 </div>
                             </ngx-dropzone>
 
-                            <div *ngFor="let file of files">
-                                <img [src]="file.url" alt="Preview" class="preview-image" />
-                                <button (click)="onRemove(file)">Remove</button>
-                                <div class="progress">
-                                    <div class="progress-bar" [style.width.%]="file.uploadProgress"
-                                        [ngClass]="{'bg-success': file.uploadSuccess, 'bg-danger': file.uploadError}">
-                                        {{ file.uploadProgress }}%
+                            <div *ngFor="let file of files" class="mt-3 drag-image-preview-main">
+                                <div class="drag-image-preview">
+                                    <img [src]="file.url" alt="Preview" class="preview-image" />
+                                    <div class="progress">
+                                        <div class="progress-bar" [style.width.%]="file.uploadProgress"
+                                            [ngClass]="{'bg-success': file.uploadSuccess, 'bg-danger': file.uploadError}">
+                                            {{ file.uploadProgress }}%
+                                        </div>
                                     </div>
+                                    <button (click)="onRemove(file)"><ng-icon name="heroXMark"></ng-icon></button>
                                 </div>
                             </div>
                         </div>
@@ -615,11 +622,10 @@
                             <!-- <mat-slider max="500" class="w-100 mt-5">
                                 <input matSliderThumb>
                             </mat-slider> -->
-                            <div>
-                                <input type="range" class="form-range" id="customRange1" [(ngModel)]="rangeValue"
+                            <div class="gredient-range">
+                                <input type="range" class="form-range" [(ngModel)]="rangeValue"
                                     style="--track-color: {{ trackColor }};">
-                                    
-                            </div>   
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -636,11 +642,8 @@
                                     <p>Cappuccino</p>
                                     <div class="d-flex">
                                         <input type="range" min="0" max="100" id="num1"
-                                            class="form-range custom-range-slider" 
-                                            step="1" (input)="updateValues('num1', $event)" 
-                                            [(ngModel)]="continuousValue"
-                                            style="--track-color: {{ continuousTrackColor }};">
-
+                                            class="form-range custom-range-slider" step="1"
+                                            (input)="updateValues('num1', $event)">
                                         <label for="num1">{{ rangeValue1 }}</label>
                                     </div>
                                 </div>
@@ -681,7 +684,81 @@
                                     <ng-icon name="heroBars3" class="me-2"></ng-icon> {{ i + 1 }}. {{ item.listing }}
                                 </div>
                             </div> -->
-                            <div class="row" cdkDropListGroup>
+                            <div>
+                                <div class="adding-list">
+                                    <h5>Drag a option to rank as per your Opinion</h5>
+                                    <div cdkDropList cdkDropListOrientation="horizontal" class="ranking-list"
+                                        #timeList="cdkDropList" [cdkDropListData]="timePeriods"
+                                        [cdkDropListConnectedTo]="[targetList, targettwoList,targetthreeList,targetfourList,targetfiveList]"
+                                        (cdkDropListDropped)="drop($event, 0); back($event)">
+                                        <ul class="example-box">
+                                            <li *ngFor="let timePeriod of timePeriods" cdkDrag>{{ timePeriod }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <div class="adding-result">
+                                    <h5 class="mb-3">Drop here as per your rating sequence</h5>
+                                    <div class="example">
+                                        <div class="box mt-5" cdkDropList cdkDropListOrientation="horizontal"
+                                            #targetList="cdkDropList" [cdkDropListData]="targetItems"
+                                            [cdkDropListConnectedTo]="[timeList]"
+                                            (cdkDropListDropped)="drop($event, 1)">
+                                            <h6>Rating 1</h6>
+                                            <p class="small mb-0">Drop Here!</p>
+                                            <div *ngFor="let targetItem of targetItems" class="example-box" cdkDrag>
+                                                {{ targetItem }}
+                                            </div>
+                                        </div>
+                                        <div class="box mt-5" cdkDropList cdkDropListOrientation="horizontal"
+                                            #targettwoList="cdkDropList" [cdkDropListData]="targettwoItems"
+                                            [cdkDropListConnectedTo]="[timeList]"
+                                            (cdkDropListDropped)="drop($event, 0)">
+                                            <h6>Rating 2</h6>
+                                            <p class="small mb-0">Drop Here!</p>
+                                            <div *ngFor="let targettwoItem of targettwoItems" class="example-box"
+                                                cdkDrag>
+                                                {{ targettwoItem }}
+                                            </div>
+                                        </div>
+                                        <div class="box mt-5" cdkDropList cdkDropListOrientation="horizontal"
+                                            #targetthreeList="cdkDropList" [cdkDropListData]="targetthreeItems"
+                                            [cdkDropListConnectedTo]="[timeList]"
+                                            (cdkDropListDropped)="drop($event, 0)">
+                                            <h6>Rating 3</h6>
+                                            <p class="small mb-0">Drop Here!</p>
+                                            <div *ngFor="let targetthreeItem of targetthreeItems" class="example-box"
+                                                cdkDrag>
+                                                {{ targetthreeItem }}
+                                            </div>
+                                        </div>
+                                        <div class="box mt-5" cdkDropList cdkDropListOrientation="horizontal"
+                                            #targetfourList="cdkDropList" [cdkDropListData]="targetfourItems"
+                                            [cdkDropListConnectedTo]="[timeList]"
+                                            (cdkDropListDropped)="drop($event, 0)">
+                                            <h6>Rating 4</h6>
+                                            <p class="small mb-0">Drop Here!</p>
+                                            <div *ngFor="let targetfourItem of targetfourItems" class="example-box"
+                                                cdkDrag>
+                                                {{ targetfourItem }}
+                                            </div>
+                                        </div>
+                                        <div class="box mt-5" cdkDropList cdkDropListOrientation="horizontal"
+                                            #targetfiveList="cdkDropList" [cdkDropListData]="targetfiveItems"
+                                            [cdkDropListConnectedTo]="[timeList]"
+                                            (cdkDropListDropped)="drop($event, 0)">
+                                            <h6>Rating 5</h6>
+                                            <p class="small mb-0">Drop Here!</p>
+                                            <div *ngFor="let targetfiveItem of targetfiveItems" class="example-box"
+                                                cdkDrag>
+                                                {{ targetfiveItem }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="row" cdkDropListGroup>
                                 <div class="col-md-6 example-container">
                                     <h2>To do</h2>
                                     <div cdkDropList class="example-list" [cdkDropListData]="todo"
@@ -697,7 +774,7 @@
                                         <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
