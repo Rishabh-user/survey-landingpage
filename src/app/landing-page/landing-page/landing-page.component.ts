@@ -130,6 +130,11 @@ export class LandingPageComponent implements OnInit{
   }
   querySurveyId:any
   userId:any
+  selectedOption: number | null = null;
+  selectOption(optionId: number) { // Adjust parameter type as per your option ID type
+    this.selectedOption = optionId;
+    // You can perform additional actions when an option is selected
+  }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.param1 = params['param1'];

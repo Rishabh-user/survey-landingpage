@@ -24,15 +24,18 @@
                     </div>
                     <div class="question-align-center">
                         <div class="question-option">
-                            <div class="" *ngFor="let option of surveyQuestion?.options; let i=index;">
-                                <!-- <input type="radio" name="test" id="cb1" />
-                                <label class="type" for="cb1"><img class="img-fluid"
-                                        src="../../../assets/images/sidebar/male-option.png" width="67" height="90">
-                                    <span>Male</span>
-                                </label> -->
-                                <input name="test" id="cb1" type="radio" id="radio_{{i}}" [attr.name]="'radio_' + i" [(ngModel)]="option.isSelected">
+                            <!-- <div class="" *ngFor="let option of surveyQuestion?.options; let i=index;">
+                                <input name="test" id="cb1" type="radio" id="radio_{{i}}" [attr.name]="'radio'" [(ngModel)]="option.isSelected">
                                 <label class="type" for="cb1" [attr.for]="'radio_' + i"><img class="img-fluid"
                                     src="../../../assets/images/sidebar/male-option.png" width="67" height="90"><span>{{option.option}}</span></label>
+                            </div> -->
+                            <div class="" *ngFor="let option of surveyQuestion?.options; let i=index;">
+                                <input type="radio" [id]="'radio_' + i" [name]="'radioGroup'" [checked]="selectedOption === option.id"
+                                       (change)="selectOption(option.id)">
+                                <label class="type" [for]="'radio_' + i">
+                                    <img class="img-fluid" src="../../../assets/images/sidebar/male-option.png" width="67" height="90">
+                                    <span>{{option.option}}</span>
+                                </label>
                             </div>
                             <!-- <div class="">
                                 <input type="radio" name="test" id="cb2" checked>
