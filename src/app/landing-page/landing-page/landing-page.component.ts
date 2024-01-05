@@ -238,4 +238,34 @@ export class LandingPageComponent {
     }
   }
 
+  // color change of slider track
+  rangeValue: number = 0;
+  get trackColor(): string {
+    if (this.rangeValue <= 20) {
+      return `linear-gradient(to right, red ${this.rangeValue}%, grey ${this.rangeValue}%)`;
+    } else if (this.rangeValue <= 40) {
+      return `linear-gradient(to right, red 20%, orange ${this.rangeValue}%, grey ${this.rangeValue}%)`;
+    } else if (this.rangeValue <= 60) {
+      return `linear-gradient(to right, red 20%, orange 40%, yellow ${this.rangeValue}%, grey ${this.rangeValue}%)`;
+    } else {
+      // Continue changing color based on pointer movement beyond 80%
+      return `linear-gradient(to right, red 20%, orange 40%, yellow 60%, green ${this.rangeValue}%, grey ${this.rangeValue}%)`;
+    }
+  }
+
+  continuousValue: number = 0;
+  get continuousTrackColor(): string {
+    if (this.continuousValue <= 20) {
+      return `linear-gradient(to right, red ${this.continuousValue}%, grey ${this.continuousValue}%)`;
+    } else if (this.continuousValue <= 40) {
+      return `linear-gradient(to right, red 20%, orange ${this.continuousValue}%, grey ${this.continuousValue}%)`;
+    } else if (this.continuousValue <= 60) {
+      return `linear-gradient(to right, red 20%, orange 40%, yellow ${this.continuousValue}%, grey ${this.continuousValue}%)`;
+    } else {
+      // Continue changing color based on pointer movement beyond 80%
+      return `linear-gradient(to right, red 20%, orange 40%, yellow 60%, green ${this.continuousValue}%, grey ${this.continuousValue}%)`;
+    }
+  }
+
+
 }

@@ -374,7 +374,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: transparent;
     pointer-events: none;
   } */
-  .slider-track {
+  /* .slider-track {
     width: 100%;
     height: 5px;
     position: absolute;
@@ -395,12 +395,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   input[type="range"]::-ms-track {
     appearance: none;
     height: 5px;
-  }
+  } */
   input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     height: 1.7em;
     width: 1.7em;
-    background-color: #3264fe;
+    background-color: var(--primary);
     cursor: pointer;
     margin-top: -8px;
     pointer-events: auto;
@@ -412,7 +412,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 1.7em;
     cursor: pointer;
     border-radius: 50%;
-    background-color: #3264fe;
+    background-color: var(--primary);
     pointer-events: auto;
     border: none;
   }
@@ -422,12 +422,36 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     width: 1.7em;
     cursor: pointer;
     border-radius: 50%;
-    background-color: #3264fe;
+    background-color: var(--primary);
     pointer-events: auto;
   }
   input[type="range"]:active::-webkit-slider-thumb {
     background-color: #ffffff;
-    border: 1px solid #3264fe;
+    border: 1px solid var(--primary);
+  }
+  /* new */
+  input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 10px;
+    background: var(--track-color);
+}
+.tooltip {
+    position: absolute;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .form-range {
+    position: relative;
+  }
+  
+  /* Show the tooltip on hover */
+  .form-range:hover .tooltip {
+    display: block;
   }
   .values {
     background-color: #3264fe;
@@ -576,7 +600,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     content: "%";
     padding-left: 1px;
   }
-  html input[type=range] {
+  /* html input[type=range] {
     outline: 0;
     border: 0;
     border-radius: 500px;
@@ -584,8 +608,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     max-width: 100%;
     margin: 24px 0 16px;
     transition: box-shadow 0.2s ease-in-out;
-  }
-  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+  } */
+  /* @media screen and (-webkit-min-device-pixel-ratio: 0) {
     html input[type=range] {
       overflow: hidden;
       height: 40px;
@@ -615,7 +639,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       background: #fff;
       box-shadow: -340px 0 0 320px #1597ff, inset 0 0 0 3px #1597ff;
     }
-  }
+  } */
   html input[type=range]::-moz-range-progress {
     background-color: #43e5f7;
   }

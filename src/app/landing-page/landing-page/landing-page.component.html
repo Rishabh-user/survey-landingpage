@@ -609,9 +609,14 @@
                             <div class="multiple_select-question">
                                 <h5>Slider Scale type Question</h5>
                             </div>
-                            <mat-slider max="500" class="w-100 mt-5">
+                            <!-- <mat-slider max="500" class="w-100 mt-5">
                                 <input matSliderThumb>
-                            </mat-slider>
+                            </mat-slider> -->
+                            <div>
+                                <input type="range" class="form-range" id="customRange1" [(ngModel)]="rangeValue"
+                                    style="--track-color: {{ trackColor }};">
+                                    
+                            </div>   
                         </div>
                     </div>
                 </div>
@@ -627,9 +632,12 @@
                                 <div class="position-relative continuous-sum">
                                     <p>Cappuccino</p>
                                     <div class="d-flex">
-                                        <input type="range" min="0" max="100" value="40" id="num1" step="1"
-                                            class="form-range custom-range-slider" step="1"
-                                            (input)="updateValues('num1', $event)">
+                                        <input type="range" min="0" max="100" id="num1"
+                                            class="form-range custom-range-slider" 
+                                            step="1" (input)="updateValues('num1', $event)" 
+                                            [(ngModel)]="continuousValue"
+                                            style="--track-color: {{ continuousTrackColor }};">
+
                                         <label for="num1">{{ rangeValue1 }}</label>
                                     </div>
                                 </div>
