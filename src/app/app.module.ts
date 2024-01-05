@@ -22,6 +22,8 @@ import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { heroBars3BottomLeft } from '@ng-icons/heroicons/outline';
 import { heroStar } from '@ng-icons/heroicons/outline';
+import { heroArrowUpTray } from '@ng-icons/heroicons/outline';
+import { heroXMark } from '@ng-icons/heroicons/outline';
 
 //tooltip
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -64,7 +66,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
       heroArrowLongRight,
       heroInformationCircle,
       heroBars3BottomLeft,
-      heroStar
+      heroStar,
+      heroArrowUpTray,
+      heroXMark
     }),
     NgCircleProgressModule.forRoot({
       // set defaults here
