@@ -634,3 +634,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 0.5rem;}
 .adding-result .cdk-drop-list{ margin: 0px !important; margin-bottom: 1rem !important; padding: 1rem;}
 .adding-result .ng-star-inserted{ margin-bottom: 0px !important; padding: 1rem; border: 1px solid #ccc; border-radius: 6px; cursor: pointer;}
+
+.question-option input[type="radio"]{ opacity: 0;}

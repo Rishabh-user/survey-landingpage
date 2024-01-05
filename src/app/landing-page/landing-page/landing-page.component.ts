@@ -1,16 +1,12 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { DataService } from 'src/service/data.service';
 import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 // import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import {
-  CdkDragDrop,
-  CdkDrag,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDrag, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem, } from '@angular/cdk/drag-drop';
+import { SurveyService } from 'src/app/services/survey.service';
+import { SurveyOption, SurveyQuestion } from 'src/app/interface/survey-question.interface';
+import { ActivatedRoute } from '@angular/router';
 
 interface FileWithPreview {
   file: File;
@@ -31,7 +27,11 @@ interface Brand {
   styleUrls: ['./landing-page.component.css'],
 
 })
-export class LandingPageComponent {
+export class LandingPageComponent implements OnInit{
+
+  param1: string | null = null;
+  param2: string | null = null;
+  param3: string | null = null;
 
   form!: FormGroup; // definite assignment assertion
   brands: Brand[] = [
@@ -119,14 +119,28 @@ export class LandingPageComponent {
   currentContentIndex: number = 0;
   progress = 0;
   maxIndex = 18;
-
-  constructor(private progressService: DataService, private fb: FormBuilder) {
+  questionName = ""
+  options = "";
+  surveyQuestion: SurveyQuestion | null = null;
+  constructor(private progressService: DataService, private fb: FormBuilder, private surveyService: SurveyService,private route: ActivatedRoute) {
     this.progressService.progress$.subscribe(progress => {
       this.progress = progress;
     });
     this.initializeForm();
   }
-
+  querySurveyId:any
+  userId:any
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.param1 = params['param1'];
+      this.querySurveyId=this.param1
+    });
+    this.route.queryParams.subscribe(queryParams => {
+      this.userId = queryParams['queryParamKey'];
+      console.log("userId",this.userId)
+    })
+    this.getSurveyQuestion(this.querySurveyId, 1,0,"");
+  }
   initializeForm(): void {
     const formGroupConfig: { [key: string]: any } = {};
     this.brands.forEach(brand => {
@@ -168,17 +182,41 @@ export class LandingPageComponent {
       this.currentContentIndex--;
     }
   }
+  answer="";
+  getCheckedItems(): boolean {
+    const checkedItems: SurveyOption[] = this.surveyQuestion?.options?.filter((option: SurveyOption) => option.isSelected) ?? [];
 
-  increaseProgress() {
-    if (this.progress < 100) {
-      this.progress += 7.14; // Increase the progress by 5.55 (adjust as needed)
-      if (this.progress > 100) {
-        this.progress = 100; // Cap the progress at 100 if it exceeds
-      }
-      this.progressService.setProgress(this.progress);
+    if (checkedItems.length === 0) {
+      // Show alert if checkedItems length is zero
+      alert('Please select at least one option.');
+      return false;
+    }else{
+      this.answer = checkedItems.map(option => option.id).join(', ');
     }
-    if (this.currentContentIndex < this.maxIndex) { // Define a maximum index value
-      this.currentContentIndex++;
+    console.log('Checked Items:', checkedItems);
+    return true;
+    // Use checkedItems as needed
+  }
+  isAnswered = false;
+  increaseProgress() {
+
+
+    if (this.currentContentIndex == 1) {
+      this.isAnswered = this.getCheckedItems()
+    }
+    if (this.isAnswered) {
+      console.log("Answer",this.answer)
+      this.getSurveyQuestion(this.surveyQuestion?.surveyTypeId, 1,this.surveyQuestion?.id,this.answer);
+      if (this.progress < 100) {
+        this.progress += 7.14; // Increase the progress by 5.55 (adjust as needed)
+        if (this.progress > 100) {
+          this.progress = 100; // Cap the progress at 100 if it exceeds
+        }
+        this.progressService.setProgress(this.progress);
+      }
+      if (this.currentContentIndex < this.maxIndex) { // Define a maximum index value
+        this.currentContentIndex++;
+      }
     }
   }
 
@@ -279,6 +317,29 @@ export class LandingPageComponent {
       // Continue changing color based on pointer movement beyond 80%
       return `linear-gradient(to right, red 20%, orange 40%, yellow 60%, green ${this.continuousValue}%, grey ${this.continuousValue}%)`;
     }
+  }
+  getSurveyQuestion(surveyId: any, surveyAttemptId: number,questionId:any,answer:string): void {
+    this.surveyService.getSurveyQuestion(surveyId, surveyAttemptId,questionId,answer).subscribe(
+      (response) => {
+        console.log('Response:', response);
+        this.surveyQuestion = response;
+        console.log('Survey Question:', this.surveyQuestion);
+        if (this.surveyQuestion?.questionTypeId) {
+          if (this.surveyQuestion.questionTypeId === 8)
+            this.currentContentIndex = 1
+          else if(this.surveyQuestion.questionTypeId === 7)
+          this.currentContentIndex = 0
+          this.questionName = response.question
+          this.options = response.options
+          console.log(this.options)
+        }
+        // Handle the response data here
+      },
+      (error) => {
+        console.error('Error:', error);
+        // Handle errors here
+      }
+    );
   }
 
 

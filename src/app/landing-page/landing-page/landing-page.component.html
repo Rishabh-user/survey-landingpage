@@ -20,18 +20,21 @@
                 <div class="change" *ngIf="currentContentIndex === 0">
                     <div class="mb-5 text-center">
                         <p>Question 1/16</p>
-                        <h3>Please Select your Gender</h3>
+                        <h3>{{surveyQuestion?.question}}</h3>
                     </div>
                     <div class="question-align-center">
                         <div class="question-option">
-                            <div class="">
-                                <input type="radio" name="test" id="cb1" />
+                            <div class="" *ngFor="let option of surveyQuestion?.options; let i=index;">
+                                <!-- <input type="radio" name="test" id="cb1" />
                                 <label class="type" for="cb1"><img class="img-fluid"
                                         src="../../../assets/images/sidebar/male-option.png" width="67" height="90">
                                     <span>Male</span>
-                                </label>
+                                </label> -->
+                                <input name="test" id="cb1" type="radio" id="radio_{{i}}" [attr.name]="'radio_' + i" [(ngModel)]="option.isSelected">
+                                <label class="type" for="cb1" [attr.for]="'radio_' + i"><img class="img-fluid"
+                                    src="../../../assets/images/sidebar/male-option.png" width="67" height="90"><span>{{option.option}}</span></label>
                             </div>
-                            <div class="">
+                            <!-- <div class="">
                                 <input type="radio" name="test" id="cb2" checked>
                                 <label class="type" for="cb2"><img class="img-fluid"
                                         src="../../../assets/images/sidebar/female-option.png" width="65" height="90">
@@ -44,7 +47,7 @@
                                         src="../../../assets/images/sidebar/non-binary.png" width="90" height="90">
                                     <span>Non-Binary</span>
                                 </label>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -52,29 +55,26 @@
                 <div class="change" *ngIf="currentContentIndex === 1">
                     <div class="mb-5 text-center">
                         <p>Question 2/16</p>
-                        <h3>NCCS Questions</h3>
+                        <!-- <h3>{{questionName}}</h3> -->
                     </div>
 
                     <div class="question-align-center">
                         <div class="multiple_select-question">
-                            <h5>Q1. What is the highest level of education you have completed?</h5>
+                            <h5>{{surveyQuestion?.question}}</h5>
                             <div class="multiselect-option">
-                                <div class="form-check">
+                                <!-- <div class="form-check">
                                     <div class="checkbox-wrapper">
                                         <input type="checkbox" id="illiterate">
                                         <label class="form-check-label" for="illiterate">illiterate</label>
                                     </div>
-                                </div>
-                                <div class="form-check">
+                                </div> -->
+                                <div class="form-check" *ngFor="let option of surveyQuestion?.options; let i=index;">
                                     <div class="checkbox-wrapper">
-                                        <input type="checkbox" id="checkbox" id="Literate_but_no_formal_schooling">
-                                        <label class="form-check-label" for="Literate_but_no_formal_schooling">Literate
-                                            but
-                                            no
-                                            formal schooling</label>
+                                        <input type="checkbox" id="checkbox_{{i}}" [attr.name]="'checkbox_' + i" [(ngModel)]="option.isSelected">
+                                        <label class="form-check-label" [attr.for]="'checkbox_' + i">{{option.option}}</label>
                                     </div>
                                 </div>
-                                <div class="form-check">
+                                <!-- <div class="form-check">
                                     <div class="checkbox-wrapper">
                                         <input type="checkbox" id="checkbox" id="School_upto_4_years">
                                         <label class="form-check-label" for="School_upto_4_years">School upto 4
@@ -118,7 +118,7 @@
                                             for="Graduate_Post_Graduate_Professional">Graduate /
                                             Post Graduate - Professional</label>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
